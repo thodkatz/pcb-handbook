@@ -6,8 +6,34 @@
 \docid{AcubeSAT-OBC-G-009}
 \author{Theodoros Katzalis}
 
-\changelog{13/08/2019}{0.1}{INTERNALLY RELEASED}{Initial revision}
-\changelog{15/08/2019}{0.2}{INTERNALLY RELEASED}{Remove WIP from title and fix some typos}
+\changelog{13/08/2019}{0.1}{INTERNALLY RELEASED}{Initial revision.}
+\changelog{15/08/2019}{0.2}{INTERNALLY RELEASED}{Remove WIP from title and fix some typos.}
+\changelog{14/08/2020}{0.3}{INTERNALLY RELEASED}{
+	Updated:
+	\begin{itemize}
+		\item Rules of thumb.
+		\item Identification of design and PCB design guidelines regarding high speed applications. The last one is referred as Design for Performance.
+		\item Links are archived.
+	\end{itemize}
+	
+	\bigskip
+	
+	Added: 
+	\begin{itemize}
+		\item References and image sources.
+		\item Footnotes
+		\item Design for Testing and Design for Manufacturing.
+		\item An overview of simulation and analysis.
+		\item Checklist
+	\end{itemize}
+	
+	\bigskip
+	
+	Deleted:
+	\begin{itemize}
+		\item The Disclaimer section
+	\end{itemize}
+}
 
 \usepackage{wrapfig}
 \usepackage{subcaption}
@@ -20,33 +46,39 @@
 	%What is the purpose of this report? How to read this report? What sections you can skip? If you are in x subsystem you might be find useful these y sections…
 	%Learning materials are spread throughout the report, but if you want a synopsis you can found it in the end of this report! In “what is a PCB ?”, where the fabrication process is explained, it is focused on how professional manufacturers do their jobs and not how you can do it yourself. On the other hand, a DIY part would be very nice to have in the upcoming versions!Sometimes I was trying to use simple words for better comprehension just to feel what I was trying to say, so bare with me!!
 	
-	The purpose of this report is to make the reader feel familiar with the PCB fabrication  and to give an insight about the PCB considerations/guidelines you need to take into account when the time for design comes. So, it is divided in two main parts: \textbf{"What is a PCB?"} and \textbf{"How to design a PCB?"} In the first part, the fabrication process is explained and it is focused on how manufacturers in the PCB industry do their jobs (On the other hand, a Do It Yourself section would be very nice to have). The second part isn't oriented on how to use a CAD tool, but implies the potential problems in signal integrity and the countermeasures. If you don't have time to read thoroughly the whole report, then you should check the the \autoref{subsec:techniques} (PCB Layout techniques) and \autoref{subsec:thumb} (Rules of thumb).
+	The purpose of this report is to make the reader feel familiar with the PCB fabrication  and to give an insight about the PCB guidelines when the time for design comes. So, it is divided in two main conceptual parts: \textbf{"What is a PCB?"} and \textbf{"How to design a PCB?"}. In the first part, we will make a short introduction about different types of PCBs, their materials and the overall structure. The second part isn't oriented on how to use a CAD tool, but highlights the potential problems in signal integrity and the countermeasures.
+	
+	%If you don't have time to read thoroughly the whole report, then you should check the the \autoref{subsec:techniques} (PCB Layout techniques) and \autoref{subsec:thumb} (Rules of thumb).
 	%How I learned about PCB, where tou could find useful information + just design, print, DIY, play, do stuff!
 	
-	\section{Disclaimer}
-	This report is marked as \textbf{W}ork \textbf{I}n \textbf{P}rogress, because a lot more should be added in order to have a well completed-organized-detailed guide for PCB design. Although, I think that the the word “complete” is very uncertain and undefined, but it means that a lot more things will be discovered throughout the PCB journey, so everyone can share their personal knowledge and experience. Also, due to time constraints, some topics aren’t described in-depth. It is worth mentioning that we won’t reinvent the wheel, but we are collecting information to provide an orientation/guidance to those who thrive to design a PCB. I hope that the current version is adequate to develop an insight about PCBs and the mindset for designing quite efficiently the AcubeSAT’s boards, in the time remaining. Of course, more questions and clarifications can be made individually with the AcubeSAT’s members that have some experience in PCB design. And...of course, for the time being, this report is for internal release. 
+	%\section{Disclaimer}
+	%This report is marked as \textbf{W}ork \textbf{I}n \textbf{P}rogress, because a lot more should be added in order to have a well completed-organized-detailed guide for PCB design. Although, I think that the the word “complete” is very uncertain and undefined, but it means that a lot more things will be discovered throughout the PCB journey, so everyone can share their personal knowledge and experience. Also, due to time constraints, some topics aren’t described in-depth. It is worth mentioning that we won’t reinvent the wheel, but we are collecting information to provide an orientation/guidance to those who thrive to design a PCB. I hope that the current version is adequate to develop an insight about PCBs and the mindset for designing quite efficiently the AcubeSAT’s boards, in the time remaining. Of course, more questions and clarifications can be made individually with the AcubeSAT’s members that have some experience in PCB design. And...of course, for the time being, this report is for internal release. 
 	
 	\section{What is a PCB?}
 	
 	\begin{wrapfigure}{R}{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.4\textwidth]{assets/simple_2_layer_PCB.jpg}
-		\caption{2-layer PCB}
+		\caption{2-layer PCB \small{(\href{https://web.archive.org/web/20200813141542/https://www.edn.com/pcb-design-basics/}{image source})}}
 		\label{fig:1}
 	\end{wrapfigure}
 	
-	PCB is a \textbf{P}rinted \textbf{C}ircuit \textbf{B}oard and it is  a “sandwich” of conductive and non-conductive materials in order to control the electrical flow/signals between electrical components. It’s the place, where these components can be hosted and communicate with each other and it can be described as their mechanical and electrical support. PCBs have developed a lot throughout the years: The irreversible development of modern electronics has been increasingly pushing them towards such demands as miniaturization, light weight, high speed, better functionality and reliability, and longer lifetime. Just check the figure 2 and you will feel how time change things!
+	PCB is a \textbf{P}rinted \textbf{C}ircuit \textbf{B}oard and is  a “sandwich” of conductive and non-conductive materials that cooperate to control the electrical flow between electrical components. It’s the place, where these components can be hosted and communicate with each other and can be described as their mechanical and electrical support. PCBs have developed a lot throughout the years: The irreversible progress of modern electronics changed radically the performance and the specifications along with the considerations and the new challenges that the whole industry must face. Things are getting smaller, faster, light weight and reliable. Just check the figure 2 and you will feel how time change things!
+	
+	
 	
 	\begin{figure}[h!]
 		\centering
 		\begin{subfigure}{.5\textwidth}
 			\centering
 			\includegraphics[height=0.25\textheight, width=.8\textwidth]{assets/old_school_TV_PCB.jpg}
+			\caption{\href{https://web.archive.org/web/20200813142459/https://www.edn.com/the-pcb-is-the-most-important-component-of-your-design/}{image source}}
 			\label{fig:sub1}
 		\end{subfigure}%
 		\begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[height=0.25\textheight, width=.8\textwidth]{assets/modern_PCB.jpg}
+			\includegraphics[height=0.25\textheight, width=.8\textwidth]{assets/modern_pcb.png}
+			\caption{\href{https://web.archive.org/web/20200813143650/https://www.pcbsky.com/computers.html}{image source}}
 			\label{fig:sub2}
 		\end{subfigure}
 		\caption{An old school TV's PCB on the left and a modern PCB on the right}
@@ -55,64 +87,70 @@
 	
 	\subsection{Materials}
 	
-	As mentioned earlier, PCB is mainly a stack of conductive and non-conductive materials.
+	As mentioned earlier, PCB is mainly a stack of conductive and non-conductive materials:
 	
 	\begin{itemize}
-		\item conductive: we are referring to \textbf{copper foils}
-		\item non-conductive: we are referring mostly to \textbf{FR-4} and it used as the dielectric substrate (separation of the copper foils). But for the non- conductive materials there is a huge variety and it depends on the application.
+		\item Conductive: \textbf{Copper foils}
+		\item Non-conductive: Dielectric substrate (the base that hold the PCB together and separate the copper foils) like \textbf{FR-4}. The choice of the substrate is a function of thermal and electrical performance. For example, ceramic substrates is preferred in demanding thermal applications due to the higher thermal conductivity.
 	\end{itemize}
 	
-	To be more precise, copper clad laminate, abbreviated to CCL, is a type of base material of PCBs. With glass fiber or wood pulp paper as reinforcing material, a CCL is a type of product through lamination with copper clad on either one side or both sides of reinforcing material after being soaked in resin (more info about the materials used in PCB can be found \href{https://www.pcbcart.com/article/content/copper-clad-laminate.html}{here} and \href{https://www.pcbcart.com/pcb-capability/pcb-materials.html}{here}). You can also check \href{https://www.eurocircuits.com/technical-specifications-of-all-eurocircuits-prototype-small-volume-services-european-origin/}{the technical specifications of Eurocircuits}, the manufacturer, that cooperates with Prisma!
+	To be more precise, FR4 laminate coated with copper is called copper clad laminate (CCL). The copper foil is glued in high temperatures with the pre-preg (pre-impregnated) that is fiberglass with impregnated epoxy resin (uncured FR4). Thus CCL is the fundamental block of a PCB (\href{https://www.pcbway.com/blog/PCB_Basic_Information/Copper_Clad_Laminate.html}{source}).
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\textwidth,height=0.8\textheight,keepaspectratio]{assets/fiberglass_resin.png}
-		\caption{Uncured FR-4}
+		\caption{Prepreg, uncured FR-4 \small({\href{https://www.pcbway.com/blog/PCB_Basic_Information/Copper_Clad_Laminate.html}{image source}})}
 	\end{figure}
 	
-	Is everything related about materials include in this section? Actually, no! In PCB fabrication, more complementary processes are required (\autoref{subsec:complementary}).
+	Are PCBs consisted only of copper and substrate? Actually, no! In PCB fabrication, more complementary processes are required (subsection \ref{subsec:complementary}).
 	
-	But, first of all let’s visualize and comprehend the structure and the manufacturing process of these magic boards! Printed Circuit Boards can have different numbers of layers and sides, but can also come in changing inflexibilities. 
+	But, first of all let’s visualize and comprehend the structure and the manufacturing process of these magic boards! PCBs can have different numbers of layers and sides, but can also come in changing inflexibilities. 
 	
 	\subsection{Inflexibility}
-	In terms of inflexibility, there are three main types. The three types are 1) rigid, 2) flex and 3) rigid-flex PCBs:
+	In terms of inflexibility, there are three main types: 1) rigid, 2) flex and 3) rigid-flex PCBs:
 	
 	\subsubsection{Rigid}
-	Most customers usually think of inflexible PCBs when they image a circuit board. Rigid printed circuit boards use a solid, rigid substrate material like fiberglass that remains the board from twisting. A motherboard within the tower of a computer is the best example of an inflexible PCB.
+	The first thing that is coming to your mind when thinking a PCB is probably the rigid one. A motherboard is a characteristic example. Basically, these type of boards  use a solid substrate material that prevents the board from changing its shape. 
 	
 	\subsubsection{Flex}
-	Generally, the substrate in a flexible board is a flexible plastic. This fundamental material permits the board to fit into forms that inflexible boards cannot & to turn or shift during use without harmful the circuits on the printed circuit board. Though flex boards tend to charge more to intend and create than rigid PCBs, they come with a number of advantages. For instance, they can restore heavy or bulky wiring in superior gear like \textbf{satellites}, where weight & space matter. Flex boards can also come in three formats, namely single sided, double-sided or multi-layer formats.
+	As the name implies the advantage of the flex boards is the ability to flex! When there are tight mechanical constraints and little space, this type of boards are usually preferred. They can be either used as connectors reducing significantly the bulky size of typical connectors or as a fully assembled board. Common flex-materials to utilize these features are plastic like polyimide and polyester (\href{https://www.altium.com/rigid-flex-circuits-resources/flex-circuit-materials}{source}). Of course all of this comes with an extra cost than the rigid one.
 	
 	\subsubsection{Rigid-Flex}
-	Rigid flex boards merge technology from both flexible and rigid circuit boards. An easy rigid-flex boards comprises of a rigid circuit board that joints to a flex circuit board. These boards can be more compound if design requests demand.
+	Rigid flex boards merge technology from both flexible and rigid circuit boards and they are consisted of flexible and rigid materials. A typical example could be two rigid boards connected with a flex one.
+	
+	%source for these kind of stuff are info provided by manufacturers and asselby houses, blogs.
 	
 	\begin{figure}[h!]
 		\centering
 		\begin{subfigure}{.3\textwidth}
 			\centering
-			\includegraphics[height=0.2\textheight, width=.8\textwidth]{assets/rigid.jpg}
+			\includegraphics[height=0.2\textheight, width=.8\textwidth]{assets/rigid_obc.jpg}
+			\caption{OBDH EM}
 			\label{fig:sub1}
 		\end{subfigure}%
 		\begin{subfigure}{.3\textwidth}
 			\centering
 			\includegraphics[height=0.2\textheight, width=.8\textwidth]{assets/flex.jpg}
+			\caption{\href{https://web.archive.org/web/20200813150519/https://sfxpcb.com/flex-pcb-vs-ceramic-pcb/}{image source}}
 			\label{fig:sub2}
 		\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
 			\includegraphics[height=0.2\textheight, width=.8\textwidth]{assets/rigid_flex.jpg}
+			\caption{\href{https://web.archive.org/web/20200813145720/https://www.allaboutcircuits.com/technical-articles/pcbs-rigid-vs.-flexible-which-one-is-best-for-your-next-project/}{image source}}
 			\label{fig:sub2}
 		\end{subfigure}
 		\caption{Rigid, flex and rigid-flex PCBs}
 		\label{fig:test}
 	\end{figure}
 	
-	If you have been a little bit confused about PCBs…don’t worry! Keep reading and I hope that the following examples will help to make  the situation clear! From now on, we will be focused on simple and common rigid PCBs.
+	%If you have been a little bit confused about PCBs…don’t worry! Keep reading and I hope that the following examples will help to make  the situation clear!
+	From now on, we will be focused on simple and common rigid PCBs.
 	
 	\subsection{Layers}
 	
-	Printed Circuit Boards can be divided into layers. The increasing technological demands result to multi-layer boards and the stack up (the arrangement of copper layers and insulating layers that make up a PCB prior to board layout design)  is a very important factor. The number of layers range typically from 1 to 16 %(\href{https://en.wikipedia.org/wiki/List_of_integrated_circuit_packaging_types}{some} claim that 100-layer PCB is even possible to fabricate!)
-	and usually, in the industry, even numbers are used. Using the term layers we are basically referring to the number of copper layers
+	Printed Circuit Boards can be divided into layers. The increasing technological demands result to multi-layer boards and the stack up (the arrangement of copper layers and insulating layers)  is a very important factor. The number of layers range typically from 1 to 16 %(\href{https://en.wikipedia.org/wiki/List_of_integrated_circuit_packaging_types}{some} claim that 100-layer PCB is even possible to fabricate!)
+	and usually, in the industry, even numbers are used. Using the term layers we are basically referring to the number of copper layers.
 	
 	\subsubsection{2-Layer}
 	
@@ -124,11 +162,11 @@
 	%\end{figure}
 	\begin{wrapfigure}{R}{0.3\textwidth}
 		\centering
-		\includegraphics[height=.15\textheight, width=0.3\textwidth]{assets/2_layer_euro_3D.png}
-		\caption{2-layer PCB}
+		\includegraphics[height=.1\textheight, width=0.3\textwidth]{assets/2_layer_euro_3D.png}
+		\caption{2-layer PCB, \small{source: Eurocircuits buildup feature}}
 	\end{wrapfigure}
 	
-	A 2-layer board can be described as a laminate (what holds the layers together, typically based on FR-4) that is coated to the top and bottom side with copper. On these copper sides, the routing takes place. The traces (copper paths) are shaped and they serve as the channel for the electrical components to interact with each other. In other words, the point of the copper is to carry electrical signals to and from the PCB, much like your nervous system carries signals between your brain and your muscles. 
+	A 2-layer board can be described as a copper clad laminate as we mentioned earlier. On these copper sides, the routing takes place. These copper paths called traces serve as the channel for the electrical components to interact with each other. In other words, the point of the copper is to carry electrical signals to and from the PCB, much like your nervous system carries signals between your brain and your muscles. 
 	
 	Now, you may be wondered, how it is possible traces that belong to different copper layers to be connected with each other? The answer is via (vertical interconnection access) and it is applied also to multi-layers. In short, they are holes plated with copper.
 	
@@ -138,7 +176,8 @@
 		\caption{Different types of via for a multi-layer board, source the OrCAD book}
 	\end{figure}
 	
-	About the core, it is a non-conductive substrate usually made of fiberglass. Fiberglass is used because it provides a core strength to the PCB and helps resist breakage. Think of the substrate as the PCB’s “skeleton”. 
+	About the core, it is a non-conductive substrate usually made of FR4. FR4 is used because it provides a solid, strong core and the most cost effective solution regarding dielectric strength, losses and heat dissipation. There are many types of FR4 though. Eventually, think of the substrate as the PCB’s “skeleton”. 
+	%\href{https://www.twistedtraces.com/blog/fr4-printed-circuit-boards}{source}
 	
 	\subsubsection{4-Layer}
 	Now, that we have a basic understanding about a 2-layer PCB, let’s jump to a 4-layer one:
@@ -148,15 +187,19 @@
 		\begin{subfigure}{.4\textwidth}
 			\centering
 			\includegraphics[height=0.25\textheight, width=\textwidth]{assets/2_layer_euro.png}
+			\caption{source: Eurocircuits buildup feature}
 		\end{subfigure}
 		\begin{subfigure}{.4\textwidth}
 			\centering
 			\includegraphics[height=0.25\textheight, width=\textwidth]{assets/4_layer_PCB.png}
+			\caption{\href{https://web.archive.org/web/20200813153211/https://docs.toradex.com/102492-layout-design-guide.pdf}{image source}}
 		\end{subfigure}
-		\caption{An old school TV's PCB on the left and a modern PCB on the right}
+		\caption{Typical stack-up dimensions fro a 2 (left) and 4 (right) layers boards}
 	\end{figure}
 	
-	The multi-layer layers are basically a set of 2-layer boards “glued” together and this is also the main reason why even numbers are used. Furthermore, lamination is the process by which the core(s) of a printed circuit board are melted together through heat and pressure with copper layers and prepreg layers (in multi-layer PCBs). In other words, it is the process that creates a “sandwich” or multiple “sandwiches” connected together. It requires specific heating and pressure for specific periods of time based on materials used to ensure the PCB is made properly.  These laminates and the copper thickness comes in different sizes, too.
+	The multi-layer layers are basically a set of 2-layer boards glued together and this is also the main reason why even numbers are used. Furthermore, lamination is the process by which the core(s) of a printed circuit board are melted together through heat and pressure with copper layers and prepreg layers (in multi-layer PCBs). In other words, it is the process that creates a “sandwich” or multiple “sandwiches” connected together. It requires specific heating and pressure for specific periods of time based on materials used to ensure the PCB is made properly.  These laminates and the copper thickness comes in different sizes, too.
+	
+	% what is lamination is straight forward regarding resources
 	
 	\begin{figure}[h!]
 		\centering
@@ -165,37 +208,52 @@
 		\label{fig:my_label}
 	\end{figure}
 	
-	Noticeable differences between the figure 5 and figure 7 are: 1) the height is the same to these boards (0.063 inches = 1.6 mm) and 2) the new term called \textbf{prepreg}. Someone could say, how it is possible for the overall thickness to be the same in 2 and 4 layers PCB. It’s because laminates and copper foils of different thickness are used to prevent increasing the height of it as the layers are increasing. So a 4-layer board is actually a set of two 2-layer boards separated by  the core, but the overall thickness is the same with a 2-layer design, because in the 4 layer-design the pairs have smaller thickness. A rule of thumb is to have the same thickness above and below of the core! (multi-layers boards can be mirrored). More info about the stack-up thickness can be found \href{https://www.cbspcb.com/pcboard-stackups/}{here}. 
+	Noticeable differences between the figure 7a and figure 7b are: 1) the height is approximately the same to these boards (0.063 inches = 1.6 mm) and 2) the \textbf{prepreg}. Someone could say, how it is possible for the overall thickness to be the same in 2 and 4 layers PCB? It’s because laminates and copper foils of different thickness are used to prevent increasing the height of it as the layers are increasing. So a 4-layer board is actually a set of two 2-layer boards separated by  the core, but the overall thickness is the same with a 2-layer design, because in the 4 layer-design the pairs have smaller thickness. A rule of thumb is to have the same thickness above and below of the core! (multi-layers boards can be mirrored).
 	
-	A prepreg (pre-impregnated) is one of the main materials used in multi-layer boards and is what holds the cores together. It is composed of fiberglass impregnated with resin (an epoxy-based material). The prepreg and core quite often get mixed up (\href{https://electronics.stackexchange.com/questions/356063/what-exactly-is-prepreg-and-core-in-a-pcb}{explanation}). However, they are two separate components of the PCB. The core of the PCB is the FR-4 layers of copper traces and glass-reinforced epoxy laminate sheets. Once heated (lamination) the prepreg holds the core of the PCB and the layers together.
+	As we have stated, prepreg is a fiberglass impregnated with resin (FR4). The resin isn'
+	t hardened yet so it can be used to glue the required copper foils. It is different with the core in the way that there is still the modular feature of curing, of bonding things together. The core is already cured with copper foils in both sides (copper clad laminate). Although there might be some differences in the materials and the electric, thermal properties between these two.
+	%\href{https://resources.altium.com/p/pcb-core-vs-prepreg-material-what-designers-need-to-know}{source}
 	
-	\subsection{Complementary materials/layers}
+	\subsection{Complementary layers}
 	\label{subsec:complementary}
 	
-	Except the fundamental copper layers and the substrate that partitions these layers, there are some other complementary processes during manufacturing that can be defined as extra layers (note: the term layers is used quite a lot and can have several meanings) and they are very useful and necessary nowadays. These are the soldermask, the surface finish/treatment and the silkscreen.
-	
+	Except the fundamental copper layers and the substrate, there are some complementary processes during manufacturing that can be defined as extra layers (note: the term layers is used quite a lot and can have several meanings) and they are very useful and necessary nowadays. These are the soldermask, the surface finish/treatment, the silkscreen and the conformal coating. We are go intro great depth for the materials and their properties though.
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics{assets/2_layer_plus_silkscreen.png}
+		\centering
+		\includegraphics[keepaspectratio, height=0.25\textheight, width=.6\textwidth]{assets/2_layer_plus_silkscreen.png}
 		\caption{\href{https://learn.sparkfun.com/tutorials/using-eagle-board-layout/all}{Image source}}
-		\label{fig:my_label}
 	\end{figure}
+	
+	
 	
 	\subsubsection{Soldermask}
 	
-	If you ever wonder why most of the PCBs have a green color in the surface, then now you will understand that the soldermask is the reason! But what it is?
-	It is primarily used for protection from oxidization and contact with external environment as well as electrical isolation on the printed circuit board. In addition to benefits as mentioned above, solder mask material also protects from scratching effects of movable electronics parts and thermal aging. The solder mask material is dependent on applications for which particular PCB is manufactured, and also it includes physical dimensions of PCB, size of holes and components. Standards should also be taken into account for which PCB is made whether they are for aerospace or medical or general electronics or telecom industry. Most commonly used material is epoxy liquid material. It had minimal cost and made of polymer type material which is thermal resistant, and it often requires curing thermally. Finally about color, solder mask material comes in different colors, but the most popular material color is green color due to its easily distinguishable color among other electronics and mechanical components and less irritation to the human eyes. Different colors include black, white, yellow, red and orange. Except from the colors, there are also different types of soldermask (check \href{https://www.allpcb.com/soldermask/soldermask_types.html}{this}).
+	If you encountered a PCB, then the first thing that you would notice is the green color. This is called soldermask and is a thin polymer applied to the top and the bottom of a PCB. Overall the soldemask assists the functionality and durability of the board by protecting it from oxidation, corrosion, moisture and dust. It is used also for preventing manufacturing defects like solder bridges.  There are two basic categories of soldermask materials: liquid screen printed and photoimageable masks. Most of the times the soldermask choice in special applications like aerospace will be dictated by standards. It is worth mentioning that the green color is the most distinctive but of course it can have other colors too. There are a few reasons why the green is the most common one like better visual inspection.
+	
+	% source for color, \href{http://www.seeedstudio.com/blog/2017/07/23/why-are-printed-circuit-boards-are-usually-green-in-colour/}{this}
+	
+	% \href{https://resources.altium.com/p/how-choose-correct-solder-mask-your-pcb}{altium source}
+	
+	%source for the soldermask the OrCAD book
 	
 	\subsubsection{Surface finish}
 	
-	A PCB surface finish is a coating between a component and a bare board PCB. It is applied for two basic reasons: to ensure solderability, and to protect exposed copper circuitry. As there are many types of surface finishes, selecting the right one is no easy task, especially as surface mounts have become more complex and regulations such as RoHS and WEEE have changed industry standards.
 	
-	For decades HASL (Hot air solder leveling) was one of the most popular surface finish choices. Yet, in recent years, manufacturers have realized its limitations. While a surface finish may be low cost and robust, fundamental changes in the PCB industry—namely, the rise complex surface mount technology—have exposed its shortcomings. HASL leaves uneven surfaces and is not suitable for fine pitch components. Although it does come in lead-free, there are other lead-free options which will likely make more sense for a high-reliability product
+	A PCB surface finish is a coating applied above the pads, the exposed copper areas. It is applied for two basic reasons: to ensure solderability and to protect exposed copper circuitry. As there are many types of surface finishes, selecting the right one is no easy task, especially as SMDs have become more complex and regulations such as RoHS and WEEE have changed industry standards.
 	
-	ENIG (Electroless Nickel Immersion) is quickly becoming the most popular surface finish in the industry. It’s a double layer metallic coating, with nickel acting as both a barrier to the copper and a surface to which components are soldered. A layer of gold protects the nickel during storage. ENIG is an answer to major industry trends such as lead-free requirements and rise of complex surface components (especially BGAs and flip chips), which require flat surfaces. But ENIG can be expensive, and at times can result in what is commonly known as “black pad syndrome,” a buildup of phosphorous between the gold and nickel layers that can result in fractured surfaces and faulty connections. 
+	There are many types of surfaces. Namely we have: Hot air solder leveling (HASL), Immersion Tin (ImSn) or Silver (ImAg), Electroless Nickel Imerssion Gold (ENIG) and Electroless Nickel Electroless Palladium Immersion Gold (ENEPIG), Organic Solderability Preservative (OSP). The most popular in the old days was HASL.
+	% source about the old one, \href{http://blog.optimumdesign.com/pcb-surface-finishes-comparison-hasl-osp-enig}{this}
+	Each one of those has of course its advantages and its disadvantages. The most common one probably is the ENIG.
 	
-	%(maybe put Prisma claiming when sending email)
+	% \href{https://www.pcbcart.com/article/content/surface-finish-intro-and-comparision.html}{source}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[keepaspectratio, height=0.2\textheight, width=.6\textwidth]{assets/surface_finish.png}
+		\caption{\href{https://www.pcbcart.com/article/content/surface-finish-intro-and-comparision.html}{image source}}
+	\end{figure}
 	
 	\subsubsection{Silkscreen}
 	
@@ -205,21 +263,24 @@
 	
 	\subsection{Assembly}
 	
-	After the design and the bare board fabrication have finished, the time for soldering\footnote{Soldering is used both to attach components physically to the PCB and to provide electrical conductivity between the component’s leads and the PCB traces. The most common one is the Sn63/Pb37} and component placement has come (populated board). The process that is responsible for this is called assembly and the board with the combined components is called PCBA (Printed Circuit Board Assembly).
+	After the design and the bare board fabrication have finished, the time for soldering\footnote{Soldering is used both to attach components physically to the PCB and to provide electrical conductivity between the component’s leads and the PCB traces. The most common one is the Sn63/Pb37.} and component placement has come (populated board). The process that is responsible for this is called assembly and the board with the combined components is called PCBA (Printed Circuit Board Assembly).
 	
 	PCBs can be assembled \textbf{manually} or by \textbf{automatic} machinery. Manually assembled is related with placing and soldering the components by hand. This is suitable for prototypes and low volume production. A mixed process with hand placement and automatic soldering can also be used as a strategy regarding the manual method. For the automated assembly, pick and place machines are substituting the hands of the assemblers and the soldering process can be divided to reflow and wave soldering. 
 	
+	The first one is used for SMDs and the second one mostly for through hole or for a mixed set up with both package types. 
+	As the high speed applications are increasing, SMT is replacing the through-hole due to better electrical performance (inductance and capacitance of the leads) and size costraints. Thus the wave soldering is used less except some special applications (e.g. power devices).
+	
 	\subsubsection{Conformal coating}
 	
-	Conformal coating briefly is an additional step of the assembly process. After the placement of the components in the PCB, a polymeric coating is applied to the top to protect the product from harsh environmental conditions.
+	Very briefly, conformal coating is an additional step of the assembly process. After the placement of the components in the PCB, a polymeric coating is applied to the top of the populated board to protect it from harsh environmental conditions.
 	
 	Until now, we have discussed a lot about PCB structure and fabrication. But what about the electrical components that can be placed on them. What are the prerequisites? What are the form factors? Why to choose the one or the another?
 	
 	\subsection{Integrated circuit packages}
 	
-	Packages are a fundamental part of the IC fabrication and the assembly. They are the house, the structure of the actual circuitry of the die and the interface with the rest of the distributed electrical components in a PCB via leads, solder balls and pads. They play a crucial role in electrical and thermal performance too.
+	Packages are a fundamental part of the IC fabrication and PCBA. They are the house, the structure of the actual circuitry of the die and act as the interface with the rest of the distributed electrical components in a PCB via leads, solder balls and pads. They play a crucial role in electrical and thermal performance too.
 	
-	Standardization makes the job of PCB industry a lot more productive and efficient. Thus, most electronic components come in standardized packages. A package type has well a defined set of physical dimensions that the component has to conform to. For each package, normally the pitch spacing, height and general shape is defined. However there are non standardized packages for special applications. In general, they can be divided in two main categories: 1) SMT (Surface Mount Technology) and 2) Through-hole. It is worth mentioning that the trend is to be everything SMT for quite a few reasons. More about packages can be found in the AcubeSAT report.
+	Standardization makes the job of PCB industry a lot more productive and efficient. Thus, most electronic components come in standardized packages. A package type has well a defined set of physical dimensions that the component has to conform to. For each package, normally the pitch spacing, height and general shape is defined. However there are non standardized packages for special applications. In general, based on the mounting technology ICs can they can be divided in two main categories: 1) SMD (Surface Mount Device) and 2) Through-hole. More about packages can be found in the AcubeSAT report.
 	
 	
 	\subsection{Summary}
@@ -231,10 +292,20 @@
 	\subsection{External links} %about PCB fabrication
 	
 	\begin{itemize}
-		\item \href{https://www.youtube.com/watch?v=ljOoGyCso8s&t=311s}{JLCPCB}
-		\item \href{https://www.eurocircuits.com/making-a-pcb-pcb-manufacture-step-by-step/}{Eurocircuits} + \href{https://www.youtube.com/watch?v=sIV0icM_Ujo&t=436s}{bonus}
+		\item \href{https://electronics.stackexchange.com/questions/356063/what-exactly-is-prepreg-and-core-in-a-pcb}{What is the difference between prepreg and core?}
+		\item \href{https://www.cbspcb.com/pcboard-stackups/}{Stack-up thickness PCB} 
+		\item \href{https://www.youtube.com/watch?v=ljOoGyCso8s&t=311s}{JLCPCB fabrication cycle video}
+		\item \href{https://www.eurocircuits.com/making-a-pcb-pcb-manufacture-step-by-step/}{Eurocircuits} 
+		\item \href{https://www.youtube.com/watch?v=sIV0icM_Ujo&t=436s}{PCB chart step by step making a pcb}
 		\item \href{https://www.pcbcart.com/article/content/PCB-manufacturing-process.html}{PCBChart}
 		\item \href{https://en.wikipedia.org/wiki/List_of_integrated_circuit_packaging_types}{A list of IC packages}
+		\item \href{https://www.eurocircuits.com/technical-specifications-of-all-eurocircuits-prototype-small-volume-services-european-origin/}{Eurocircuits technical specification}
+	\end{itemize}
+	\subsubsection{Materials}
+	\begin{itemize}
+		%   \item \href{https://www.allpcb.com/soldermask/soldermask_types.html}{4 main types of soldermask}
+		\item \href{https://www.pcbcart.com/pcb-capability/pcb-materials.html}{PCB material guide by PCBChart}
+		\item \href{https://www.pcbcart.com/article/content/copper-clad-laminate.html}{Copper clad laminate by PCBChart}
 	\end{itemize}
 	
 	
