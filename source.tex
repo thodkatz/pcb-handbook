@@ -8,7 +8,7 @@
 
 \changelog{13/08/2019}{0.1}{INTERNALLY RELEASED}{Initial revision.}
 \changelog{15/08/2019}{0.2}{INTERNALLY RELEASED}{Remove WIP from title and fix some typos.}
-\changelog{14/08/2020}{0.3}{INTERNALLY RELEASED}{
+\changelog{15/08/2020}{0.3}{INTERNALLY RELEASED}{
 	Updated:
 	\begin{itemize}
 		\item Rules of thumb.
@@ -399,7 +399,7 @@
 	
 	%\textbf{A very quick introduction about transmission line theory and electromagnetic radiation}.
 	This different electric behavior is related with the fact that signals are starting to act like waves. But why and how?
-	Waves in nature have some fundamental characteristics. The \textbf{wave} nature of voltage signals is starting to take shape when frequency is very high and length of the interconnections is such that fractions of wavelength can fit to the conductive traces. Just like ocean waves and ropes reflect when they meet an obstacle, a voltage signal can potentially reflect back to the source. A very nice \href{https://www.youtube.com/watch?v=DovunOxlY1k}{video} by AT\&T can help a lot with the visualization to consolidate the analogy! These reflections is the cause of the important aspect of impedance matching. In the PCB case, they can be observed when there are discontinuities (impedance mismatch) regarding the geometry of the conductive path along the way that the signal propagates. Another feature that needs to be considered is the \textbf{radiation} aspect. When charges accelerate, electromagnetic fields are taking shape. The higher the frequency, the shorter the rise time, the faster the acceleration, the greater the radiation. The goal of the transmission lines is to guide the energy with maximum power transfer, zero reflections to an antenna and without radiating energy. So we could summarize that in high frequencies, voltage signals behave like waves and the charge acceleration radiate electromagnetic energy that it can be coupled to undesired pathways if we don't pay attention. We will mention in the section PCB guidelines, more about the problems and the solution regarding high speed signals.
+	Waves in nature have some fundamental characteristics. The \textbf{wave} nature of voltage signals is starting to take shape when frequency is very high and length of the interconnections is such that fractions of wavelength can fit to the conductive traces. Just like ocean waves and ropes reflect when they meet an obstacle, a voltage signal can potentially reflect back to the source. A very nice \href{https://www.youtube.com/watch?v=DovunOxlY1k}{video} by AT\&T can help a lot with the visualization to consolidate the analogy! These reflections is the cause of the important aspect of impedance matching. In the PCB case, they can be observed when there are discontinuities (impedance mismatch) regarding the geometry of the conductive path along the way that the signal propagates. Another feature that needs to be considered is the \textbf{radiation} aspect. When charges accelerate, electromagnetic fields are taking shape. The higher the frequency, the shorter the rise time, the faster the acceleration, the greater the radiation. The goal of the transmission lines is to guide the energy with maximum power transfer, zero reflections to an antenna and without radiating energy. So we could summarize that in high frequencies, voltage signals behave like waves and the charge acceleration radiate electromagnetic energy that it can be coupled to undesired pathways if we don't pay attention. We will discuss more in the section Design for Performance about the problems and the solution regarding high speed signals.
 	
 	But why transmission lines can be bad? What are the transmission line effects? They can cause timing issues due to the delay of the signal to reach from the driver to the source (tuning traces) and reflection issues such as false triggering, ringing, more EMI and crosstalk, overshoot, distortion etc. As it seems transmission lines can affect severely the signal integrity so we need first to identify them and secondly to address the problems of reflection and delay with impedance matching, proper termination and tuning traces (section DFP).
 	
@@ -409,7 +409,7 @@
 	
 	%Don't forget to include why transmission theory isnt bad, antenna and the applications! Reflection cause ringing, radiation can couse coupling and son and these are negative side effects in signal integrity. Why is bad and why is good. As the frequency is getting higher then the EM waves are like dogs that are burking and they can't wait to unleash them to run. The goal is to guide the EM waves and not let them distribute to unintentional pathways. The goal is to guide energy!
 	
-	Sometimes we are very good at learning individual things but connecting the dots is equally important. A recommended book to connect electromagnetism and circuit theory about electronics is by Ralh Morrison "Fields and electronics". It is very important to start thinking in fields and space rather traces that carrying signals. Viewing traces as the boundary of the space, is more helpful as a designing mindset in the AC world.
+	Sometimes we are very good at learning individual things but connecting the dots is equally important. A recommended book to connect electromagnetism and circuit theory about electronics is "The Fields of Electronics: Understanding Electronics Using Basic Physics" by Ralph Morrison. It is very important to start thinking in fields and space rather traces that carrying signals. Viewing traces as the boundary of the space, is more helpful as a designing mindset in the AC world.
 	
 	%This paragraph is more design oriented, not suitable for the introduction. The impedance matching is referred to such and such. (Be careful when changing the medium!) Check all about circuits for sure. But why reflections are actually bad? Because a portion of the desired energy will be eventually delivered to the load causing circuit failures (logic failures in the digital world). The load didn't receive at a particular time frame the expected voltage. The reflections that are going back and forth may not attenuate until the beginning of the next input signal causing many problems, is this bouncing effect?
 	
@@ -438,7 +438,7 @@
 	%We are going to summarize the above with the following statement:
 	%This rule of thumb should not be taken too seriously. Designer may faced transmission line effects even in cases of $\lambda/40$ or can ignore them until the length if comparable with $\lambda/4$. It depends on the acceptable noise margins, the sensitivity of the circuit and the tolerances. So the best response for when designers should worry about these effects is \textbf{When these become important to the design}. In other words the real issue that needs to be considered is how much reflection can the circuit tolerate and still be functional? 
 	
-	First about the sinusoidal ones, for the transmission line model (microstrip, depicted figure 3), using the equation $ c = \lambda*f$ and knowing the frequency we can calculate the wavelength in free space ($c = 3*10^8$, the speed of light). Including the dielectric constant of the medium the wavelength of interest is $\lambda_d = \lambda/\sqrt{\epsilon_r}$\footnote{This formula is valid in a stripline environment that the field is surrounded by the dielectric. In the microstrip, the effective dielectric should be used due to the air. Propagation velocity of stripline is a stricter rule than the microstrip though.}. For the typical dielectric choice FR4 in PCBs, the constant is $\epsilon_r = 4.5$ (velocity factor, $1/\sqrt{\epsilon_r} = 0.47$).
+	First about the sinusoidal ones, for the transmission line model (microstrip, depicted figure 3), using the equation $ c = \lambda*f$ and knowing the frequency we can calculate the wavelength in free space ($c = 3*10^8$, the speed of light). Including the dielectric constant of the medium the wavelength of interest is $\lambda_d = \lambda/\sqrt{\epsilon_r}$\footnote{This formula is valid in a stripline environment that the field is surrounded by the dielectric. In the microstrip, the effective dielectric should be used due to the air. Propagation velocity of stripline is a stricter rule than the microstrip though.}. For the typical dielectric choice FR4 in PCBs, the constant is $\epsilon_r = 4.5$ (velocity factor, $1/\sqrt{\epsilon_r} = 0.47$) \cite[p.46]{williams2004circuit}.
 	% source for the above is circuit companion page 46, also this \href{https://www.youtube.com/watch?v=bVdwu1IoX4k}{guy} does the same thing
 	%sometime about propagation velocity they include the permeability. But this is 1, according to \href{https://blogs.mentor.com/hyperblog/blog/tag/velocity-of-propagation/}{this}
 	It is worth mentioning that \textbf{it isn't the frequency} that really matters, it is about comparing the length of the tracks that carrying the signal (voltage) with its wavelength. When these two are "comparable", then the designers need to incorporate in their thinking the transmission line theory. To define what is comparable, a rule of thumb well know in the industry with some differences among the references is that the length of the line should not be under $\lambda/10$! For example for a 100MHz signal with FR4 as medium, the length of the tracks should kept under 0,141 m for a transmission-free design! \textbf{But this rule of thumb should not be taken too seriously}. Designer may face transmission line effects even in cases of $\lambda/40$ or can ignore them until the length is comparable with $\lambda/4$. It depends on the acceptable noise margins, the sensitivity of the circuit and the tolerances. So the best response for the question when the designer should worry about transmission line effect is: \textbf{When these effects become important/noticeable to the design}. In other words the real issue that needs to be considered is how much reflection and coupling can the circuit tolerate and still be functional? 
@@ -602,7 +602,9 @@
 	\textbf{Design for Performance} is referred to electrical performance and it becomes crucial in high speed applications when a lot of guidelines should be implemented to meet the requirements. 
 	High speed design is something that you can't explicitly define. We mentioned some rules of thumb for the transmission line and the distributed model, but in general in the MHz region and above you should treating lines with a careful mindset\footnote{ It is should be noted that the voltage of the signal is quite important for the radiation. A fast rising time of a 5V signal would have more energy than a 3.3V. This is why the \textbf{slew rate} (how fast the voltage change) can be actually a better indicator of signal criticality.}. It should be noted that every pair of signal and return path can be defined as a transmission line. We may keep the interconnections small and not having reflections and this is good but just a subset of the signal integrity.
 	
-	\textbf{Question}: Even if I have very short rise times that means trouble, but the pin changes its state not very often (it isn't periodic like the clock that change its time very frequently), can I assume that it isn't a critical signal eventually? \href{https://www.ti.com/lit/an/szza009/szza009.pdf}{source, page 2, PCB design guidelines for reduced EMI}
+	\textbf{Question}: Even if I have very short rise times that means trouble, but the pin changes its state not very often (it isn't periodic like the clock that change its time very frequently), can I assume that it isn't a critical signal eventually \cite{instruments1999pcb}?
+	%\href{https://www.ti.com/lit/an/szza009/szza009.pdf}{source, page 2, PCB design guidelines for reduced EMI}
+	% \href{https://web.archive.org/web/20200815072104/https://www.ti.com/lit/an/szza009/szza009.pdf}{archived}
 	
 	% Most of the problems in PCB design fall of to these categories:
 	First we categorized the problems in SI, PI and EMC. A more practical way to categorize the issues in the design is the following:
@@ -840,7 +842,7 @@
 	
 	The interesting part of crosstalk is how to simulate it. Usually 2D field or 3D tools are used to calculate the capacitive and inductive coupling and then these measurements are integrated to the modeling process. 
 	
-	But how much crosstalk is too much? In order to find this you need to define the noise margins and the tolerance of your design. Then with the help of superposition and with modeling you could approximate how much noise it will be coupled.
+	But how much crosstalk is too much? In order to find this you need to define the noise margins and the tolerance of your design. Then with the help of superposition and with modeling you could approximate how much noise it will be coupled \cite{montrose2004emc,bogatin2009signal}.
 	
 	%\subsubsection{Summary}
 	
@@ -1018,7 +1020,7 @@
 	
 	\subsection{Unused pins}
 	
-	Most of the times the datasheets will provide information what the designer should do about the unused pins, the floating pins of an MCU for example. The common solution is to tied them to ground, providing a low impedance path. But is this always the case? Is a myth to tie every floating pin to ground \cite{learnemc:myth}?
+	Most of the times the datasheets will provide information what the designer should do about the unused pins, the floating pins of an MCU for example. The common solution is to tied them to ground, providing a low impedance path. But is this always the case? Is a myth to tie every floating pin to ground \cite{learnemc:myth, rangu2014getting}?
 	
 	%\subsection{2 Layer design}
 	
@@ -1030,6 +1032,11 @@
 	%	\item Be careful with slots. This is a general rule of thumb though
 	%\end{itemize}
 	
+	\subsection{External links}
+	
+	\begin{itemize}
+		\item \href{https://web.archive.org/web/20200815071606/https://electronics.stackexchange.com/questions/15135/decoupling-caps-pcb-layout/15143}{A very informative answer in electronics stackexchange}
+	\end{itemize}
 	
 	\section{Design for Manufacturing}
 	
@@ -1042,7 +1049,7 @@
 	%(for compliance with standards used by the manufacturer)
 	For instance, Eurocircuits offers some \href{https://www.eurocircuits.com/drc-settings-and-guide-lines-for-cad-packages/}{templates} to import these scripts to the EDA tool used by the designers (for this case the supported ones are KiCad, Altium and Eagle). It should be noted that DRC is usually checking for trace width, spacing and enclosure, but this is only a subset of the DFM. So it is quite important to have an overview of the methods that are going to be used for the fabrication of the PCB. DFM is sometimes referred not only to the bare board production but also to the assembly (Design for Assembly). Actually, DFM and DFA automatic checks are the first things that the manufacturers do. 
 	
-	It is recommended to know in the design phase how your PCB will be assembled to integrate the corresponding considerations and rules. Some guidelines for DFM outside the scope of DRC could be:
+	It is recommended to know in the design phase how your PCB will be assembled to integrate the corresponding considerations and rules. Some guidelines for DFM outside the scope of DRC could be \cite{mitzner2011complete, ema2019hitchhiker}:
 	
 	\begin{itemize}
 		\item All component outlines on your silkscreen should be marked with a reference designator and polarity (pin 1 marker) indicators. 
@@ -1054,7 +1061,8 @@
 		
 		%\item Placing and orienting components
 		\item Prefer to place all the components to the top side of the board. Double sided PCBs are costly. If component placement is done with automatic pick and place machines, then additional cycle is required in the assembly line to flip the board and do the placement on the bottom side.
-		\item Orient similar components in the same direction. It is easier for inspection and testing. It looks nicer too!		\item How my PCB is going to be assembled/soldered? Manually or by automated machinery? Reflow or wave soldering?
+		\item Orient similar components in the same direction. It is easier for inspection and testing. It looks nicer too!	
+		\item How my PCB is going to be assembled/soldered? Manually or by automated machinery? Reflow or wave soldering?
 		
 		If \textbf{wave soldering} is going to be used then for optimal soldering the designer should consider: 1) The SMDs are aligned perpendicular to the direction of the board going through the wave, 2) Large components should not "shadow" smaller ones and 3) Dual in line packages such as SOIC have their axis aligned to the wave direction. 
 		
@@ -1134,7 +1142,7 @@
 	%For the last one, in circuit testing (is used also for simple defects like open, shorts etc.) and flying probes are the most known ways to address it. 
 	Assemblers charge the customer by the type of the testing service and by the hours needed which is a function of volume. In general testing is an expensive part of the cycle.
 	% (, typically the 30\% of the total cost. \href{https://www.altium.com/solution/designing-for-testability-pcb-design}{source about the cost}).
-	The cost for ICT is on average 20.000 dollars! 
+	The cost for ICT is on average 20.000 dollars \cite{wiki:flying}! 
 	%Another resource for the cost, \href{https://en.wikipedia.org/wiki/Flying_probe}{wiki} and \href{https://blog.matric.com/what-does-pcb-in-circuit-testing-cost}{source}. 
 	Testing for electric performance (verify proper operation for analog and digital circuits) could also be integrated in the provided services as part of the ICT by performing power up tests. It can test for functionality as well as assembly defects.
 	
@@ -1156,7 +1164,7 @@
 	
 	%source about the interface is the fact that test fixture act as a funnctional interface too and from the EEVBlog talking about JTAG
 	
-	Does it \textbf{worth} to include test fixture and the additional \textbf{cost}? In circuit testing and flying probe testing is a quite common debate. In general for low volume, prototypes and low complexity boards, flying probe testing is the way to go along with visual inspection and functional testing. Flying probe testing is referred also as a type of in-circuit testing but without the need of the "bed of nails", the test fixture. The drawbacks are: more cycle time, less test coverage (how to test BGA with flying probes?), no power up test etc. But usually a combination of methods can also be used. 
+	Does it \textbf{worth} to include test fixture and the additional \textbf{cost}? In circuit testing and flying probe testing is a quite common debate. In general for low volume, prototypes and low complexity boards, flying probe testing is the way to go along with visual inspection and functional testing. Flying probe testing is referred also as a type of in-circuit testing but without the need of the "bed of nails", the test fixture. The drawbacks are: more cycle time, less test coverage (how to test BGA with flying probes?), no power up test etc. But usually a combination of methods can also be used \cite{matric:flying}. 
 	
 	% resource that combinations of methods can be used, \href{https://en.wikipedia.org/wiki/Flying_probe}{source}
 	
@@ -1176,7 +1184,7 @@
 	
 	%As we have seen the list of the possible tests that an assembly house can provide, the design requirements for each kind of testing should be mentioned.
 	
-	Among the first things that the designer should definitely ask is how the board is going to be tested (planning ahead is crucial). There are quite a few rules that need to be addressed for testing, especially for ICT and flying probe testing. Some of them could be:
+	Among the first things that the designer should definitely ask is how the board is going to be tested (planning ahead is crucial). There are quite a few rules that need to be addressed for testing, especially for ICT and flying probe testing. Some of them could be \cite{ema2019hitchhiker}:
 	
 	\begin{itemize}
 		\item Place test points to each net being accessible from the bottom or the top of the PCBA. Preferably, to minimize the cost, use only one side (no need for an extra cycle in the assembly line) 
@@ -1263,62 +1271,61 @@
 	
 	The SPICE model is well known in the world of circuit simulation and is used in the analog simulation tools based on the SPICE engine. However, vendors usually struggling to offer these type of models for their products because precious information can be obtained regarding the design of the IC. Thus without revealing the intellectual property of the product, vendors usually provide the so called Input/output Buffer Information Specification (\textbf{IBIS}) model that run in special signal integrity simulators (or behavioral simulators) of the industry, like the ones mentioned before, while containing only the necessary data for this type of analysis. Simulations tools that can handle these models are mostly commercial and probably the most complete tool among them is the HyperLynx provided by Mentor.
 	%Can you view the IBIS model to contain valuable data about the rise time of signals though? Or something useful to determine how critical they are?
-	However, IBIS models can be useful, even without simulation, by \textbf{viewing} their data that contains among others the rise time of signals in the digital ports.
+	However, IBIS models can be useful, even without simulation, by \textbf{viewing} their data that contains among others the rise time of signals in the digital ports \cite{bogatin2009signal}.
 	
-	An extensive resource to IBIS models is \href{https://www.analog.com/media/en/technical-documentation/application-notes/AN-715.pdf}{this by Analog}. Nice wording too.
+	%An extensive resource to IBIS models is \href{https://www.analog.com/media/en/technical-documentation/application-notes/AN-715.pdf}{this by Analog}. Nice wording too.
 	
 	%It is worth mentioning that in digital circuits with complex devices like MCUs, there is no point creating a SPICE model for them. It is more convenient to simulate specific digital ports of interest. A simple simulation could include in the schematic capture a driver, a load and the interconnection, the transmission line with impedance set by the PCB layout. 
 	%(Its impedance is a function of the width and the thickness and can be calculated using online tools such as the Samacsys or integrated tools of the EDA tool)
 	
-	These traditional \textbf{analog} tools, based on SPICE, can do the work for the common digital scenarios. The question is how to build or find spice circuit models for the transmitter and the receiver? How to approximate the circuit, how to test and model high speed signals? How to integrate the inductive and capacitance coupling to your circuit? Can 2D and 3D fields results interpreted as lumped elements and included in my simulation (because crosstalk can't be seen by a schematic, but affects the design)? Circuit modeling using SPICE models should be a topic for a new report \cite{bogatin2009signal}!
+	These traditional \textbf{analog} tools, based on SPICE, can do the work for the common digital scenarios. The question is how to build or find spice circuit models for the transmitter and the receiver? How to approximate the circuit, how to test and model high speed signals? How to integrate the inductive and capacitance coupling to your circuit? Can 2D and 3D fields results interpreted as lumped elements and included in my simulation (because crosstalk can't be seen by a schematic, but affects the design)? Circuit modeling using SPICE models should be a topic for a new report!
 	
 	
 	%\subsubsection{Workflow}
 	%\textbf{First route the critical traces}
 	
 	\section{Rules of thumb}
-	\label{subsec:thumb}
 	
 	\begin{itemize}
-		\item In general keep traces short and wide
-		\item Keep signals and their return paths as close as possible. Avoid slots in planes or keep them short
-		\item Be aware of the return current paths and try to visualize how current will flow (easy to say, hard to do!)
-		\item Spread unrelated signals as further apart as possible and keep the distance, that these signals are adjacent, short
-		\item Slow down the signals (clock frequency) if there is no need of higher frequencies
-		\item Provide low-impedance path for the power supply and ground
+		\item Keep traces short and wide. 
+		\item Minimize the current loop.
+		\item Avoid ground loops.
+		\item Spacing unrelated signals (3H rule).
+		\item Connectors to the edges.
+		\item Avoid slots in planes or keep them short.
+		\item Use ground and power planes. Use ground as reference.
+		\item Use a different gorund domain for the clock signals.
+		\item Identify the return current paths. 
+		%    \item Be aware of the return current paths and try to visualize how current will flow (easy to say, hard to do!)
+		\item If you can do your job with longer rise time then do it.
 		%\item Be aware of the sources of EMI and victim. Eliminate the interference and protect the victims!
-		\item Identify the vulnerable parts of your PCB design and partition it efficiently. What components are sensitive in power-supply terms? What is the rise time of this data signal? What should I do when mixing analog and digital signals? What precautions should I take?
-		\item Impedance control and termination if it is required
-		\item Decoupling caps!
-		\items Read the datasheets to find any specific required hardware support
-		\item Don't forget the manufacturing process and design accordingly to the manufacturer (e.g. orientation of components)
-		\item Unused pins should be tied to the ground
-		\item Avoid ground loops
-		\item Use vias with care
-		\item First route the critical traces
+		\item Filtering the PCB supply with inductors and capacitors. Decoupling caps should be close to the pins.
+		\item Minimize the usage of vias.
+		\item First route the critical traces.
+		\item 50 Ohms for impedance matching.
+		%    \item PCB is art! If it looks good, it will work good!
+		\item Use multiple track widths. Especially for power, traces should be thicker (minimize the inductance).
 		\item An old saying is that PCB design is 90\% placement and 10\% routing.
-		\item PCB is art! If it looks good, it will work good!
-		\item Use multiple track widths. Especially for power, traces should be thicker to minimize the inductance.
-		\item Filtering the pcb supply with inductors and capacitors.
 	\end{itemize}
 	
 	\section{Checklist}
 	
 	\begin{itemize}
-		\item Did you read the datasheets and the docs in general for the hardware development of each component offered by the vendors?
-		\item Did you place decoupling capacitors?
-		\item Did you know the logic family, the voltages, the current, the rise time? How critical is your design?
+		\item Did you read the datasheets and the docs for the hardware development of each component offered by the vendors?
+		\item Did you know the logic family, the voltages, the current, the rise time? How critical is your design?  What are the tolerances, the noise margins? 
+		\item Did you partition, zoned your design based on the functional blocks (RF, digital, analog)?
 		\item Do I need to take into account reflections? 
-		\item RF, Digital, Analog?
+		\item Did you place decoupling capacitors?
+		\item Did you pay attention to the clock signals?
 		\item Are you sure that everything fits? Mechanical constraints?
-		\item Did you run the DRC check?
-		\item What are the tolerances, the noise margins? 
-		\item What was the trade offs between cost and functionality to meet the requirements?
-		\item Did you design for manufacturing and testing? Who is gonna do the testing?
-		\item Did you make simulation to increase the confidence for the functionality of your board? 
-		\item Are the assembly and manufacturing data with the proper format and compliant with the needs of the corresponding house?
 		\item Are you sure that ground is ground?
 		\item Are passive components like capacitors and inductors what they are supposed to be? Parasitic elements?
+		\item Did you run the DRC check?
+		\item Did you design for manufacturing and testing? Who is gonna do the testing?
+		\item Did you route first the critical signals?
+		\item Did you make simulation (circuit and field) to increase the confidence for the functionality of your board? 
+		\item Are the assembly and manufacturing data with the proper format and compliant with the needs of the corresponding house?	
+		\item Did you document your designing decisions?
 		\item Do you like the aesthetic aspect of your PCB (PCB is art!)? If yes then you are probably going well.
 		\item Do you plan to improve this checklist? (It would be wise to do so!)
 	\end{itemize}
@@ -1327,34 +1334,33 @@
 	
 	Along the way we have mentioned a lot of rules of thumbs but we didn't mention the most important one. Don't take rule of thumbs too seriously. These are approximations and sometimes can differ a lot from reality. If designer want to think something fast then it is an okey method. But simulations along with specific data for your application is a more accurate but time consuming process. 
 	
+	
+	\section{Further reading}
+	\subsection{Recommended Books}
+	
 	Warning, a biased opinion is following: If Balanis book is the bible for Antenna theory then Signal Integrity and Power Integrity by Eric Bogatin is the bible for PCB design.
 	
-	
-	
-	\section{Resources}
-	\subsection{Learning resources}
+	Most of the following are in the references:
 	\begin{itemize}
-		\item[-] Howard Johnson, Martin Graham. High Speed Digital Design: A Handbook of Black Magic 
-		\item[-] Peter Wilson. The Circuit Designer's Companion
-		\item[-] Mark I. Montrose. Printed Circuit Board Design Techniques for EMC Compliance 
-		\item[-] Douglas Brooks. Signal Integrity Issues and Printed Circuit Board Design
-		\item[-] \href{https://drive.google.com/file/d/1C4cFAzJpTlKedcgKvlWDQnTaCCgdo58s/view?usp=sharing}{EMC Fastpass. Getting EMC design right at the first time}
-		\item[-] \href{https://drive.google.com/file/d/1mr8UNMDeXmdCBnOVq22b1YUi3WwKNUMm/view?usp=sharing}{Texas Instruments. High-Speed Layout Guidelines}
-		\item[-] \href{    https://drive.google.com/file/d/1gwrVG8WULKCOxYYrVLvCCZh1-luvQacq/view?usp=sharing}{NXP. High-Speed Layout Guidelines}
-		\item[-] \href{https://drive.google.com/file/d/1ylptbGbczsr2scbjPCba7q4J1PiyvQL8/view?usp=sharing}{David L. Jones. PCB Design Tutorial}
-		
+		\item Signal and Power Integrity - Simplified (2nd Edition) by Eric Bogatin.
+		\item High Speed Digital Design: A Handbook of Black Magic by Howard Johnson, Martin Graham.
+		\item Electromagnetic Compatibility Engineering by Henry W. Ott
+		\item The Circuit Designer's Companion by Peter Wilson
+		\item Printed Circuit Board Design Techniques for EMC Compliance by Mark I. Montrose.
+		\item Signal Integrity Issues and Printed Circuit Board Design by Douglas Brooks.
+		\item Complete PCB Design Using OrCAD Capture and PCB Editor by Kraig Mitzner
+		\item Transmission Lines in Digital and Analog Electronic Systems: Signal Integrity and Crosstalk by Clayton R. Paul
 	\end{itemize}
 	
 	\subsection{Notorious websites}
 	\begin{itemize}
-		\item \href{https://bethesignal.com/bogatin/}{Be the signal}
-		\item \href{http://www.sigcon.com/}{Howard johnson}
-		\item \href{https://www.signalintegrityjournal.com/}{Singal integrity journal}
-		\item \href{https://www.edn.com/}{edn}
-		\item \href{https://www.allaboutcircuits.com/}{all about circuits}
+		\item \href{https://bethesignal.com/bogatin/}{Be the signal}. Author: Eric Bogatin
+		\item \href{http://www.sigcon.com/}{Signal Consulting}. Author: Howard Johnson
+		\item \href{http://www.hottconsultants.com/}{Electromagnetic Compatibility Consulting and Training}. Author: Henry Ott
+		\item \href{https://www.signalintegrityjournal.com/}{Singal integrity journal}. 
+		\item \href{https://www.edn.com/}{EDN}
+		\item \href{https://www.allaboutcircuits.com/}{Αll about circuits}
 		\item \href{https://incompliancemag.com/topics/resources/}{incompliance magazine}
-		\item \href{https://electronics.stackexchange.com/questions/15135/decoupling-caps-pcb-layout/15143#15143}{An amazing stackexchange answer. Definitely worthy to give it a read!}
-		\item \href{http://www.hottconsultants.com/}{Henry Ott}
 		\item \href{https://learnemc.com/}{LearnEMC}
 	\end{itemize}
 	
